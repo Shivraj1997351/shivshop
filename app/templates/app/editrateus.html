@@ -1,0 +1,77 @@
+{% extends 'app/base.html' %} {% load static %} {% block title %}Edit Review{% endblock title %}{% block main-content %}
+<style>
+    .checked {
+        color: orange;
+    }
+    
+    input[type="radio"] {
+        -webkit-appearance: none;
+    }
+</style>
+<div class="container my-3">
+    <form action="" method="POST" id="form" class="shadow p-5">{% csrf_token %}
+        <div class="form-group">
+            <textarea name="comment" id="comment" cols="30" rows="10" placeholder="Your review" required>{{comment}}</textarea>
+        </div>
+        <div class="form-group">
+            <input type="radio" name="rate" id="star-1" value="1" required>
+            <label for="star-1"><i class="fa fa-star" aria-hidden="true"></i></label>
+            <input type="radio" name="rate" id="star-2" value="2" required>
+            <label for="star-2"><i class="fa fa-star" aria-hidden="true"></i></label>
+            <input type="radio" name="rate" id="star-3" value="3" required>
+            <label for="star-3"><i class="fa fa-star" aria-hidden="true"></i></label>
+            <input type="radio" name="rate" id="star-4" value="4" required>
+            <label for="star-4"><i class="fa fa-star" aria-hidden="true"></i></label>
+            <input type="radio" name="rate" id="star-5" value="5" required>
+            <label for="star-5"><i class="fa fa-star" aria-hidden="true"></i></label>
+        </div>
+        <button type="submit" class="btn btn-primary">Rate</button>
+    </form>
+</div>
+
+<script>
+    $("input[type='radio']").change(function() {
+        var rates = $("input[type='radio']:checked").val();
+        if (rates == '1') {
+            $('label[for="star-1"]').addClass('checked');
+            $('label[for="star-2"]').removeClass('checked');
+            $('label[for="star-3"]').removeClass('checked');
+            $('label[for="star-4"]').removeClass('checked');
+            $('label[for="star-5"]').removeClass('checked');
+        }
+        if (rates == '2') {
+            $('label[for="star-1"]').addClass('checked');
+            $('label[for="star-2"]').addClass('checked');
+            $('label[for="star-3"]').removeClass('checked');
+            $('label[for="star-4"]').removeClass('checked');
+            $('label[for="star-5"]').removeClass('checked');
+        }
+        if (rates == '3') {
+            $('label[for="star-1"]').addClass('checked');
+            $('label[for="star-2"]').addClass('checked');
+            $('label[for="star-3"]').addClass('checked');
+            $('label[for="star-4"]').removeClass('checked');
+            $('label[for="star-5"]').removeClass('checked');
+
+        }
+        if (rates == '4') {
+            $('label[for="star-1"]').addClass('checked');
+            $('label[for="star-2"]').addClass('checked');
+            $('label[for="star-3"]').addClass('checked');
+            $('label[for="star-4"]').addClass('checked');
+            $('label[for="star-5"]').removeClass('checked');
+        }
+        if (rates == '5') {
+            $('label[for="star-1"]').addClass('checked');
+            $('label[for="star-2"]').addClass('checked');
+            $('label[for="star-3"]').addClass('checked');
+            $('label[for="star-4"]').addClass('checked');
+            $('label[for="star-5"]').addClass('checked');
+        }
+    })
+</script>
+
+
+
+
+{% endblock main-content %}

@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %} {% load static %} {% block title %}Bottom wear{% endblock title %} {% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-sm-2 border-end">
+            <ul class="list-unstyled">
+                <li class="d-grid"><a href="{% url 'bottomwear' %}" class="list-group-item list-group-item-action" aria-current="true">All</a></li>
+                <li class="d-grid"><a href="{% url 'bottomweardata' 'Sony' %}" class="list-group-item list-group-item-action" aria-current="true">Sony</a></li>
+                <li class="d-grid"><a href="{% url 'bottomweardata' 'Lyra' %}" class="list-group-item list-group-item-action" aria-current="true">Lyra</a></li>
+                <li class="d-grid"><a href="{% url 'bottomweardata' 'below' %}" class="list-group-item list-group-item-action" aria-current="true">Below Rs. 300</a></li>
+                <li class="d-grid"><a href="{% url 'bottomweardata' 'above' %}" class="list-group-item list-group-item-action" aria-current="true">Above Rs. 300</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 offset-sm-1">
+            <div class="row">
+                {% for product in bottomwears %}
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <a href="{% url 'product-detail' product.id%}" class="btn">
+                                <div class="item">
+                                    <img src="{{product.product_image.url}}" alt="" height="300" class="card-img-top">
+                                    <div class="fw-bold">{{product.title}}</div>
+                                    <div class="fw-bold">Rs. {{product.discounted_price}} <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div><br>
+                </div> {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}

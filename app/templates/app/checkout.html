@@ -1,0 +1,56 @@
+{% extends 'app/base.html' %} {% load static %} {% block title %}Checkout{% endblock title %} {% block main-content %}
+<style>
+    .box {
+        float: right;
+    }
+</style>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <h4>Order Summary</h4>
+            <hr> {% for item in cart_items %}
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5>{{item.product.title}}</h5>
+                    <div class="box"><img src="{{item.product.product_image.url}}" alt="" class="img-fluid img-thumbnail shadow-sm" height="100" width="100"></div>
+                    <p>Quantity: {{item.quantity}}</p>
+                    <p class="fw-bold">Price: {{item.total_cost}}</p>
+                </div>
+            </div>
+            {% endfor %}
+            <p class="fw-bold">Total amount(including shipping amount): <strong>{{totalamount}}</strong></p>
+            <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure optio repellat dolor velit, minus rem. Facilis cumque neque numquam laboriosam, accusantium adipisci nisi nihil in et quis?</small>
+        </div>
+        <div class="col-sm-4 offset-sm-1 mb-5">
+            <h4>Select Shipping Address</h4>
+            <hr>
+            <form action="/paymentdone">
+                {% if add %} {% for ad in add %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5>{{ad.name}}</h5>
+                        <p>Mobile No: {{ad.mobile}}</p>
+                        <p>{{ad.locality}}, {{ad.city}}, {{ad.state}} - {{ad.zipcode}}</p>
+                    </div>
+                </div>
+
+                <div class="form-check mt-2 mb-5">
+                    <input class="form-check-input" type="radio" name="custid" id="custadd{{forloop.counter}}" value="{{ad.id}}" required>
+                    <label class="form-check-label fw-bold" for="">
+            Address: {{forloop.counter}} </label>
+                </div>
+                {% endfor %} {% if totalamount == 70.0 %}
+                <h3 class="bg-warning">Atleast one product required</h3>
+                {% else %}
+                <div class="text-end">
+                    <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button>
+                </div>
+
+                {% endif %} {% else %}
+                <h3 class="bg-warning">Address required</h3>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock main-content %}
